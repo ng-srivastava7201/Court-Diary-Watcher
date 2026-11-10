@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Court Diary Watcher</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      width: 480px;
+      max-width: 100%;
+      padding: 16px;
+      box-sizing: border-box;
+      color: #222;
+      background: #fff;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+
+    #status {
+      margin: 8px 0 12px;
+      font-size: 13px;
+      color: #555;
+    }
+
+    #list {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      background: #f5f5f5;
+      padding: 12px;
+      border-radius: 6px;
+      max-height: 330px;
+      overflow-y: auto;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    #error {
+      color: #b42318;
+      font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    button {
+      padding: 9px 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background: #fff;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #eee;
+    }
+
+    #connect {
+      background: #1a73e8;
+      border-color: #1a73e8;
+      color: white;
+    }
+
+    #connect:hover {
+      background: #1558b0;
+    }
+
+    #msg {
+      color: #188038;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+
+    .note {
+      color: #666;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.header img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.header h2 {
+  margin: 0;
+}
+  </style>
+</head>
+
+<body>
+  <div class="header">
+  <img src="logo.png" alt="Court Diary Watcher Logo">
+  <h2>Court Diary Watcher</h2>
+</div>
+
+  <p id="status">Loading calendar reminders...</p>
+
+  <div id="list">Loading...</div>
+
+  <p id="error" role="alert"></p>
+  <p id="msg" role="status"></p>
+
+  <div class="buttons">
+    <button id="connect">
+      Connect Google Calendar
+    </button>
+
+    <button id="check">
+      Check now
+    </button>
+
+    <button id="copy">
+      Copy
+    </button>
+
+    <button id="close">
+      Close
+    </button>
+  </div>
+
+  <p class="note">
+    This extension reads calendar entries only.
+    It does not verify court orders or case outcomes.
+  </p>
+
+  <script src="popup.js"></script>
+</body>
+</html>

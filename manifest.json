@@ -1,0 +1,50 @@
+
+{
+  "manifest_version": 3,
+  "name": "Court Diary Watcher",
+  "version": "1.1.0",
+  "icons": {
+  "16": "logo.png",
+  "32": "logo.png",
+  "48": "logo.png",
+  "128": "logo.png"
+},
+  "description": "Reminds you about court diary entries that have not been updated after a hearing.",
+  "permissions": [
+    "identity",
+    "alarms",
+    "storage",
+    "clipboardWrite"
+  ],
+  "host_permissions": [
+    "https://www.googleapis.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+  {
+    "matches": [
+      "https://calendar.google.com/*"
+    ],
+    "js": [
+      "content.js"
+    ],
+    "run_at": "document_idle"
+  }
+],
+  "action": {
+  "default_title": "Court Diary Watcher",
+  "default_popup": "popup.html",
+  "default_icon": {
+    "16": "logo.png",
+    "32": "logo.png"
+  }
+},
+  "oauth2": {
+    "client_id": "883526785002-al1uva1ggdp4id7c5n55a8mej2fcubc4.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/calendar.readonly"
+    ]
+  }
+}
