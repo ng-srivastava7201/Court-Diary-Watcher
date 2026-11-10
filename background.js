@@ -12,7 +12,8 @@ const LOOKBACK_DAYS = 60;
 // If "wp" causes false matches (e.g. WordPress), delete it from the list.
 const LEGAL_REGEX =
   /(?<![a-z])(?:vs\.?|v\/s|versus|v\.|crl|wp|slp|case\s*no|#case)(?![a-z])/i;
-
+const EXCLUDE_REGEX =
+    /\b(conferences?|meetings?)\b/i;
 const POPUP_URL = chrome.runtime.getURL("popup.html");
 
 /*
