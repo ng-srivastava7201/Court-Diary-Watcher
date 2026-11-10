@@ -138,6 +138,12 @@ async function findStaleCases(allowRetry = true) {
     const eventText =
         `${event.summary || ""} ${event.description || ""}`;
 
+    // Exclude conferences and meetings
+    if (EXCLUDE_REGEX.test(eventText)) {
+        return false;
+    }
+
+    // Include only legal-related events
     if (!LEGAL_REGEX.test(eventText)) {
         return false;
     }
@@ -154,12 +160,11 @@ async function findStaleCases(allowRetry = true) {
         return false;
     }
 
-    // Hearing must have ended at least 2 days ago.
+  
     if (endTimestamp > staleCutoff) {
         return false;
     }
 
-    // Entry must not have been modified in the last 2 days.
     if (updatedTimestamp > staleCutoff) {
         return false;
     }
