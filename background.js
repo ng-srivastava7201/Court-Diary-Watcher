@@ -14,7 +14,7 @@ const LEGAL_REGEX =
   /(?<![a-z])(?:vs\.?|v\/s|versus|v\.|crl|wp|slp|case\s*no|#case)(?![a-z])/i;
 
 const POPUP_URL = chrome.runtime.getURL("popup.html");
-
+const EXCLUDED_COLOR_IDS = ["11"];
 /*
  * Use non-interactive authentication in the background.
  * Initial Google authorization is requested from popup.js
@@ -133,10 +133,18 @@ async function findStaleCases(allowRetry = true) {
 
   return events
     
+
 .filter((event) => {
     const eventText =
         `${event.summary || ""} ${event.description || ""}`;
 
+    if (EXCLUDED_COLOR_IDS.includes(event.colorId)) {
+        return false;
+    }
+
+    if (EXCLUDE_REGEX.test(eventText)) {
+        return false;
+    }
     if (!LEGAL_REGEX.test(eventText)) {
         return false;
     }
@@ -153,12 +161,10 @@ async function findStaleCases(allowRetry = true) {
         return false;
     }
 
-    // Hearing must have ended at least 2 days ago.
     if (endTimestamp > staleCutoff) {
         return false;
     }
 
-    // Entry must not have been modified in the last 2 days.
     if (updatedTimestamp > staleCutoff) {
         return false;
     }
