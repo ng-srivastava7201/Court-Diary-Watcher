@@ -135,9 +135,17 @@ async function findStaleCases(allowRetry = true) {
   return events
     
 
+
 .filter((event) => {
     const eventText =
         `${event.summary || ""} ${event.description || ""}`;
+
+    if (EXCLUDED_COLOR_IDS.includes(event.colorId)) {
+        return false;
+    }
+    if (EXCLUDE_REGEX.test(eventText)) {
+        return false;
+    }
 
     if (!LEGAL_REGEX.test(eventText)) {
         return false;
@@ -155,7 +163,6 @@ async function findStaleCases(allowRetry = true) {
         return false;
     }
 
-    // Hearing must have ended at least 2 days ago.
     if (endTimestamp > staleCutoff) {
         return false;
     }
